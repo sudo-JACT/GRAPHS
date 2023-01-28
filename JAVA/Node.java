@@ -170,7 +170,7 @@ public class Node {
             
         }else{
 
-            n += "|" + this.to.getNodeName() + ": " + this.to.getTag() + "|";
+            n += "|" + this.to.getNodeName() + ":" + this.to.getTag() + "|";
 
         }
 
