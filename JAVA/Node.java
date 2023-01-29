@@ -1,13 +1,24 @@
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author 1M0NK3Y
+ * @version 1.0.0
+ *
+ */
+
 public class Node {
     
     private static int nodes_created=0;
 
     private int noden;
     private int tag;
-    private int fromdgeW;
-    private int toedgeW;
-    private Node from;
-    private Node to;
+    private List fromdgeW = new ArrayList<Integer>();
+    private List toedgeW = new ArrayList<Integer>();
+    private List from = new ArrayList<Node>();
+    private int noffromnode = 0;
+    private List to = new ArrayList<Node>();
+    private int noftonode = 0;
     private String nodename;
 
 
@@ -17,8 +28,6 @@ public class Node {
         Node.nodes_created++;
         this.nodename = nn;
         this.tag = 0;
-        this.from = null;
-        this.to = null;
 
     }
 
@@ -26,26 +35,60 @@ public class Node {
 
         this.noden = Node.nodes_created;
         Node.nodes_created++;
-        this.from = f;
-        this.to = t;
+        this.from.add(f);
+        this.noffromnode++;
+        this.to.add(t);
+        this.noftonode++;
         this.nodename = nn;
-        this.fromdgeW = f.getToW();
-        this.toedgeW = t.getFromW();
-        this.tag = f.getToW() + f.getTag();
+        this.fromdgeW.add(f.getToW(this));
+        this.toedgeW.add(t.getFromW(this));
+        this.tag = f.getToW(this) + f.getTag();
 
 
     }
 
 
-    public int getToW(){
+    public int getToW(Node n){
 
-        return this.toedgeW;
+        Node n2;
+
+        for(int i=0; i < this.noftonode; i++){
+
+            n2 = (Node) this.to.get(i);
+
+            if (n.equals(n2)) {
+
+                int g = (int) this.toedgeW.get(i);
+
+                return g;
+                
+            }
+
+        }
+
+        return -404;
 
     }
 
-    public int getFromW(){
+    public int getFromW(Node n){
 
-        return this.fromdgeW;
+        Node n2;
+
+        for(int i=0; i < this.noffromnode; i++){
+
+            n2 = (Node) this.from.get(i);
+
+            if (n.equals(n2)) {
+
+                int g = (int) this.fromdgeW.get(i);
+
+                return g;
+                
+            }
+
+        }
+
+        return -404;
 
     }
 
@@ -67,37 +110,56 @@ public class Node {
 
     }
 
-    public Node getFromNode(){
+    public Node getFromNode(int i){
 
-        return this.from;
+        Node n = (Node) this.from.get(i);
 
-    }
-
-    public Node getToNode(){
-
-        return this.to;
+        return n;
 
     }
 
+    public Node getToNode(int i){
 
-    public Node setFromNode(Node n){
+        Node n = (Node) this.to.get(i);
 
-        this.from = n;
-        this.setFromnNodeW(n.getToW());
+        return n;
+
+    }
+
+
+    public Node addFromNode(Node n){
+
+        this.from.add(n);
+        this.noffromnode++;
+        this.fromdgeW.add(n.getToW(this));
+
+        this.calcTag();
+
+        for(int i=0; i < this.noftonode; i++){
+
+            Node n2 = (Node) this.to.get(i);
+            n2.calcTag();
+
+        }
 
         return this;
 
     }
 
-    public Node setToNode(Node n){
+    public Node addToNode(Node n, int w){
 
-        this.to = n;
-        this.toedgeW = n.getFromW();
+        this.to.add(n);
+        this.noftonode++;
+        this.toedgeW.add(w);
+
+        n.addFromNode(this);
 
         return this;
 
     }
 
+    // TODO: 
+    /* 
     public int setFromnNodeW(int w){
 
         this.fromdgeW = w;
@@ -114,9 +176,33 @@ public class Node {
 
     }
 
-    private void calcTag(){
+    */
 
-        this.tag = this.from.getToW() + this.from.getTag();
+    public int calcTag(){
+
+        int mintag = 1000000, minW = 1000000, nw;
+        Node n;
+
+        for(int i=0; i < this.noffromnode; i++){
+
+            n = (Node) this.from.get(i);
+            nw = (int) this.fromdgeW.get(i);
+
+            if((n.getTag() + nw) < (mintag + minW)){
+
+                mintag = n.getTag();
+                minW = nw;
+
+            }
+
+        }
+
+
+
+        this.tag = mintag + minW;
+
+        
+        return this.tag;
 
     }
 
@@ -148,33 +234,7 @@ public class Node {
     @Override
     public String toString() {
 
-        String n = "";
-
-        if (this.from == null) {
-
-            n += "NULL---";
-            
-        }else{
-
-            n += "|" + this.from.getNodeName() + ":" + this.from.getTag() + "|---";
-
-        }
-
-        n += "|" + this.nodename + ":" + this.tag + "|---";
-
-        
-        if (this.to == null) {
-
-
-            n += "NULL";
-            
-        }else{
-
-            n += "|" + this.to.getNodeName() + ":" + this.to.getTag() + "|";
-
-        }
-
-        return n;
+        return "|" + this.nodename + ":" + this.tag + "|";
 
     }
 
