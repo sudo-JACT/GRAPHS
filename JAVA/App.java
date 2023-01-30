@@ -16,22 +16,18 @@ public class App {
         Node n5 = new Node("E");
         Node n6 = new Node("F");
 
+        n1.addToNode(n2, 1);
+        n1.addToNode(n6, 3);
 
-        n1.addToNode(n2, 100);
-        n1.addToNode(n3, 2);
-        n2.addToNode(n4, 1);
-        n2.addToNode(n5, 50);
+        n2.addToNode(n3, 3);
+        n2.addToNode(n6, 1);
+        n2.addToNode(n5, 5);
 
-        n3.addToNode(n2, 5);
-        n3.addToNode(n5, 5);
-        n4.addToNode(n5, 10);
-        n1.addToNode(n5, 50);
-        
-        n1.addToNode(n6, 9);
-        n2.addToNode(n6, 7);
-        n3.addToNode(n6, 3);
-        n4.addToNode(n6, 4);
-        n5.addToNode(n6, 2);
+        n3.addToNode(n4, 2);
+
+        n5.addToNode(n4, 1);
+
+        n6.addToNode(n5, 2);
 
         graph.add(n1);
         graph.add(n2);
@@ -39,7 +35,6 @@ public class App {
         graph.add(n4);
         graph.add(n5);
         graph.add(n6);
-
 
         ConsoleTools.clearScreen();
 

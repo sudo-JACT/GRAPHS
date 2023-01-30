@@ -2,3 +2,4 @@
 /PYTHON/__pycache__
 /RUST/target
 makefile.py
+*.gch
