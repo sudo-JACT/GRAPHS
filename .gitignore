@@ -1,2 +1,4 @@
 *.class
-PYTHON/__pycache__
+/PYTHON/__pycache__
+/RUST/target
+makefile.py
