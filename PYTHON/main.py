@@ -27,8 +27,3 @@ print(n1.toString())
 print(n2.toString())
 print(n3.toString())
 
-
-"""TODO
-
-
-    FINIRE Node.py"""

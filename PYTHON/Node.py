@@ -12,13 +12,7 @@ class Node():
         self.tag = 0;
 
 
-    def getNodeName(self):
-
-        return self.nodename
-
-    def getTag(self):
-
-        return self.tag
+    
 
     def getToW(self, n):
 
@@ -34,14 +28,36 @@ class Node():
 
         return -404
 
-    
-    def addToNode(self, n, w):
+    # get from w
+    def getFromW(self, n):
 
-        self.to.append(n)
-        self.toW.append(w);
-        self.noftonode += 1
+        i = 0;
 
-        n.addFromNode(self)
+        for x in self.fromnodes:
+
+            if x.getNodeName() == n.getNodeName():
+
+                return self.fromW[i]
+
+            i += 1
+
+    def getTag(self):
+
+        return self.tag
+
+
+    def getNodeName(self):
+
+        return self.nodename
+
+    def getFromNode(self, i):
+
+        return self.fromnodes[i]
+
+    def getToNode(self, i):
+
+        return self.to[i]
+
 
     def addFromNode(self, n):
 
@@ -50,6 +66,14 @@ class Node():
         self.noffromnode += 1
 
         self.calcTag()
+    
+    def addToNode(self, n, w):
+
+        self.to.append(n)
+        self.toW.append(w);
+        self.noftonode += 1
+
+        n.addFromNode(self)
 
 
     def calcTag(self):
@@ -72,9 +96,15 @@ class Node():
 
 
 
-    def equals(self):
+    def equals(self, n):
 
-        pass
+        if self.tag == n.getTag() and self.nodename == n.getNodeName():
+
+            return True
+
+        else:
+
+            return False
 
 
     def toString(self):
