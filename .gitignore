@@ -3,3 +3,4 @@
 /RUST/target
 makefile.py
 *.gch
+/C++/main

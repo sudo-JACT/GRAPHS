@@ -17,6 +17,19 @@ int main(){
     Node n5 = Node("E");
     Node n6 = Node("F");
 
+    n1.addToNode(n2, 1);
+    n1.addToNode(n6, 3);
+
+    n2.addToNode(n3, 3);
+    n2.addToNode(n6, 1);
+    n2.addToNode(n5, 5);
+
+    n3.addToNode(n4, 2);
+
+    n5.addToNode(n4, 1);
+
+    n6.addToNode(n5, 2);
+
     graph.push_back(n1);
     graph.push_back(n2);
     graph.push_back(n3);
@@ -27,7 +40,9 @@ int main(){
 
     for(int i=0; i < nofn; i++){
 
-        //TODO aggiungere edge e loop
+        // TODO: aggiungere edge e loop
+        
+        cout << graph[i].toString() << endl;
 
     }
 
