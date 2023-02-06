@@ -14,11 +14,19 @@ class Node():
 
     
 
-    def getToW(self, n):
+    def findW(self, n):
 
         i = 0
 
+        #resultT = 1000000
+        #resultF = resultT
+
         for x in self.to:
+
+            #if x.findW(n, False) + self.toW[i] < resultT and t == True:
+                
+                #resultT = x.findW(n, False) + self.toW[i]
+
 
             if x.getNodeName() == n.getNodeName():
 
@@ -26,20 +34,105 @@ class Node():
 
             i += 1
 
-        return -404
-
-    # get from w
-    def getFromW(self, n):
-
-        i = 0;
-
+        i = 0
         for x in self.fromnodes:
 
-            if x.getNodeName() == n.getNodeName():
+            #if x.findW(n, False) + self.fromW[i] < resultF and t == True:
+
+                #resultF = x.findW(n, False) + self.fromW[i]
+
+
+            if x.getNodeName == n.getNodeName():
 
                 return self.fromW[i]
 
             i += 1
+
+
+
+        i = 0
+
+        for x in self.fromnodes:
+        
+
+            if x.isConnected(n) == -1:
+
+                r = x.getFromW(n) + self.fromW[i]
+                
+                return r
+
+            elif x.isConnected(n) == 1:
+
+                r = x.getToW(n) + self.fromW[i]
+
+                return r
+
+            i += 1
+
+
+        for x in self.to:
+
+            if x.isConnected(n) == -1:
+
+                r = x.getFromW(n) + self.toW[i]
+
+                return r
+
+            elif x.isConnected(n) == 1:
+
+                r = x.getToW(n) + self.toW[i]
+
+                return r
+
+            i += 1
+
+        return -404
+
+
+    def getFromW(self, n):
+
+        i = 0
+        
+        for x in self.fromnodes:
+
+            if x.equals(n):
+
+                return self.fromW[i]
+            
+            i += 1
+
+        return -404
+
+    def getToW(self, n):
+
+        i = 0
+
+        for x in self.to:
+
+            if x.equals(n):
+
+                return self.toW[i]
+
+            i += 1
+
+        return -404
+
+    def isConnected(self, n):
+
+        for x in self.to:
+
+            if x.equals(self):
+
+                return 1
+
+        for x in self.fromnodes:
+
+            if x.equals(self):
+
+                return -1
+
+        return 0
+
 
     def getTag(self):
 
@@ -58,11 +151,23 @@ class Node():
 
         return self.to[i]
 
+    def setWFromNode(self, i, w):
 
-    def addFromNode(self, n):
+        self.fromW[i] = w
+
+        return self.fromnodes
+
+    def setWToNode(self, i, w):
+
+        self.toW[i] = w
+
+        return self.toW[i]
+
+
+    def addFromNode(self, n, w):
 
         self.fromnodes.append(n)
-        self.fromW.append(n.getToW(self))
+        self.fromW.append(w)
         self.noffromnode += 1
 
         self.calcTag()
@@ -73,7 +178,7 @@ class Node():
         self.toW.append(w);
         self.noftonode += 1
 
-        n.addFromNode(self)
+        n.addFromNode(self, w)
 
 
     def calcTag(self):
@@ -84,7 +189,7 @@ class Node():
 
         while i < self.noffromnode:
 
-            if (self.fromnodes[i].getTag() + self.fromW[i]) < (mintag + minw):
+            if self.fromnodes[i].getTag() >= 0 and self.fromW[i] >= 0 and ((self.fromnodes[i].getTag() + self.fromW[i]) < (mintag + minw)):
 
                 mintag = self.fromnodes[i].getTag()
                 minw = self.fromW[i]
@@ -93,7 +198,8 @@ class Node():
 
 
         self.tag = mintag + minw
-
+        
+        return self.tag
 
 
     def equals(self, n):

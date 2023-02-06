@@ -4,26 +4,38 @@ from Node import Node
 n1 = Node("A")
 n2 = Node("B")
 n3 = Node("C")
+n4 = Node("D")
+n5 = Node("E")
+n6 = Node("F")
+
+nodes = []
+nnodes = 6
+
+n1.addToNode(n2, 1)
+n1.addToNode(n6, 3)
 
 
-print(n1.toString())
-print(n2.toString())
-print(n3.toString() + "\n\n\n")
+n2.addToNode(n3, 3)
+n2.addToNode(n6, 1)
+n2.addToNode(n5, 5)
 
 
-n1.addToNode(n2, 100)
-n1.addToNode(n3, 3)
+n3.addToNode(n4, 2)
 
 
-print(n1.toString())
-print(n2.toString())
-print(n3.toString() + "\n\n\n")
+n5.addToNode(n4, 1)
 
 
-n3.addToNode(n2, 2)
+n6.addToNode(n5, 2)
 
 
-print(n1.toString())
-print(n2.toString())
-print(n3.toString())
+nodes.append(n1)
+nodes.append(n2)
+nodes.append(n3)
+nodes.append(n4)
+nodes.append(n5)
+nodes.append(n6)
 
+for i in range(nnodes):
+
+    print(nodes[i].toString())

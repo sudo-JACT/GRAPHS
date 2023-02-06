@@ -122,7 +122,9 @@ class Node{
                     mintag = tg;
                     minW = nw;
 
-                    cout << mintag << " " << minW << endl;
+                    this -> tag = mintag + minW;
+
+                    cout << mintag << " " << minW << " " << this -> tag << endl;
 
                 }
 
