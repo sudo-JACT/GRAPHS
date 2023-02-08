@@ -28,7 +28,7 @@ class Node():
                 #resultT = x.findW(n, False) + self.toW[i]
 
 
-            if x.getNodeName() == n.getNodeName():
+            if x.getNodeName() == n.getNodeName() and x.getFromW(self) > -1:
 
                 return self.toW[i]
 
@@ -42,7 +42,7 @@ class Node():
                 #resultF = x.findW(n, False) + self.fromW[i]
 
 
-            if x.getNodeName == n.getNodeName():
+            if x.getNodeName == n.getNodeName() and x.getToW(self) > -1:
 
                 return self.fromW[i]
 
@@ -55,13 +55,13 @@ class Node():
         for x in self.fromnodes:
         
 
-            if x.isConnected(n) == -1:
+            if x.isConnected(n) == -1 and x.getFromW(n) > -1:
 
                 r = x.getFromW(n) + self.fromW[i]
                 
                 return r
 
-            elif x.isConnected(n) == 1:
+            elif x.isConnected(n) == 1 and x.getToW(n) > -1:
 
                 r = x.getToW(n) + self.fromW[i]
 
@@ -72,13 +72,13 @@ class Node():
 
         for x in self.to:
 
-            if x.isConnected(n) == -1:
+            if x.isConnected(n) == -1 and x.getFromW(n) > -1:
 
                 r = x.getFromW(n) + self.toW[i]
 
                 return r
 
-            elif x.isConnected(n) == 1:
+            elif x.isConnected(n) == 1 and x.getToW(n) > -1:
 
                 r = x.getToW(n) + self.toW[i]
 
@@ -189,7 +189,7 @@ class Node():
 
         while i < self.noffromnode:
 
-            if self.fromnodes[i].getTag() >= 0 and self.fromW[i] >= 0 and ((self.fromnodes[i].getTag() + self.fromW[i]) < (mintag + minw)):
+            if self.fromnodes[i].getTag() >= 0 and self.fromW[i] >= 0 and ((self.fromnodes[i].getTag() + self.fromW[i]) < (mintag + minw)) and self.fromnodes[i].getNodeName() != self.nodename:
 
                 mintag = self.fromnodes[i].getTag()
                 minw = self.fromW[i]
