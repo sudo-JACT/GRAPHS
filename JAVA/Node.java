@@ -47,6 +47,34 @@ public class Node {
 
     }
 
+    public int findW(Node n){
+
+        int r = 1000000;
+        Node n2;
+
+        for(int i = 0; i < this.noftonode; i++){
+
+            n2 = (Node) this.to.get(i);
+
+            if(n2.equals(n) && ((int) this.toedgeW.get(i)) >= 0 && ((int) this.toedgeW.get(i)) + this.tag < r){
+                
+                r = (int) this.toedgeW.get(i) + this.tag;
+
+            }
+
+        }
+        
+        if(r != 1000000){
+
+            return r;
+
+        }else{
+
+            return -1;
+
+        }
+
+    }
 
     public int getToW(Node n){
 

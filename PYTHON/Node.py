@@ -23,11 +23,6 @@ class Node():
 
         for x in self.to:
 
-            #if x.findW(n, False) + self.toW[i] < resultT and t == True:
-                
-                #resultT = x.findW(n, False) + self.toW[i]
-
-
             if x.getNodeName() == n.getNodeName() and x.getFromW(self) >= 0 and x.getFromW(self) < r:
 
                 r = self.toW[i]
@@ -36,11 +31,6 @@ class Node():
 
         i = 0
         for x in self.fromnodes:
-
-            #if x.findW(n, False) + self.fromW[i] < resultF and t == True:
-
-                #resultF = x.findW(n, False) + self.fromW[i]
-
 
             if x.getNodeName == n.getNodeName() and x.getToW(self) >= 0 and x.getToW(n) < r:
 

@@ -14,7 +14,6 @@ n1.addToNode(n4, -1)
 n1.addToNode(n1, 0)
 
 n2.setWFromNode(0, -1)
-#n2.addToNode(n1, -1)
 n2.addToNode(n3, 9)
 n2.addToNode(n2, 0)
 
