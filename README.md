@@ -15,3 +15,11 @@
 - [ ] Python
 - [ ] Javascript
 - [ ] Rust
+
+## BELLMAN-FROD IMPLEMENTATIONS:
+
+- [ ] C++
+- [ ] Java
+- [X] Python
+- [ ] Javascript
+- [ ] Rust

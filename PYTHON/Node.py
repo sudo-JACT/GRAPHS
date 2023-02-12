@@ -19,8 +19,7 @@ class Node():
 
         i = 0
 
-        #resultT = 1000000
-        #resultF = resultT
+        r = 1000000
 
         for x in self.to:
 
@@ -29,9 +28,9 @@ class Node():
                 #resultT = x.findW(n, False) + self.toW[i]
 
 
-            if x.getNodeName() == n.getNodeName() and x.getFromW(self) > -1:
+            if x.getNodeName() == n.getNodeName() and x.getFromW(self) >= 0 and x.getFromW(self) < r:
 
-                return self.toW[i]
+                r = self.toW[i]
 
             i += 1
 
@@ -43,9 +42,9 @@ class Node():
                 #resultF = x.findW(n, False) + self.fromW[i]
 
 
-            if x.getNodeName == n.getNodeName() and x.getToW(self) > -1:
+            if x.getNodeName == n.getNodeName() and x.getToW(self) >= 0 and x.getToW(n) < r:
 
-                return self.fromW[i]
+                r = self.fromW[i]
 
             i += 1
 
@@ -58,36 +57,48 @@ class Node():
 
             if x.isConnected(n) == -1 and x.getFromW(n) > -1:
 
-                r = x.getFromW(n) + self.fromW[i]
-                
-                return r
+
+                if x.getFromW(n) + self.fromW[i] < r and r >= 0 and x.getFromW(n) + self.fromW[i] >= 0:
+
+                    r = x.getFromW(n) +self.fromW[i]
+        
+
 
             elif x.isConnected(n) == 1 and x.getToW(n) > -1:
 
-                r = x.getToW(n) + self.fromW[i]
+                if x.getToW(n) + self.fromW[i] < r and r >= 0 and x.getToW(n) + self.fromW[i] >= 0:
 
-                return r
+                    r = x.getToW(n) + self.fromW[i]
+                
 
             i += 1
 
+
+        i = 0
 
         for x in self.to:
 
             if x.isConnected(n) == -1 and x.getFromW(n) > -1:
 
-                r = x.getFromW(n) + self.toW[i]
+                if x.getFromW(n) + self.toW[i] < r and r >= 0 and x.getFromW(n) + self.toW[i] >= 0:
 
-                return r
+                    r = x.getFromW(n) + self.toW[i]
 
             elif x.isConnected(n) == 1 and x.getToW(n) > -1:
 
-                r = x.getToW(n) + self.toW[i]
+                if x.getToW(n) + self.toW[i] < r and r >= 0 and x.getToW(n) + self.toW[i] >= 0:
 
-                return r
+                    r = x.getFromW(n) + self.toW[i]
 
             i += 1
+        
+        if r != 1000000:
 
-        return -404
+            return r
+
+        else:
+
+            return -1
 
 
     def getFromW(self, n):
@@ -102,7 +113,7 @@ class Node():
             
             i += 1
 
-        return -404
+        return -1
 
     def getToW(self, n):
 
@@ -116,7 +127,7 @@ class Node():
 
             i += 1
 
-        return -404
+        return -1
 
     def isConnected(self, n):
 
